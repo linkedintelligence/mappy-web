@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappy — Search the world like you mean it.</title>
+<meta name="description" content="Mappy is an open-source AI place discovery engine. Ask naturally. Find places that actually fit.">
+<style>
+:root{
+  --bg:#f7f7f3; --ink:#171717; --muted:#686861; --card:#fff;
+  --line:#deded6; --accent:#6c5ce7; --accent2:#efeaff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.5;
+}
+a{color:inherit;text-decoration:none}
+.nav{
+  max-width:1120px;margin:auto;padding:22px 24px;display:flex;
+  justify-content:space-between;align-items:center;
+}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1.5px}
+.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:24px;color:#555;font-size:14px}
+.navlinks a:hover{color:var(--ink)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 19px;border-radius:13px;font-weight:750;font-size:14px;
+  border:1px solid var(--ink);transition:.18s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn.dark{background:var(--ink);color:white}
+.btn.light{background:white}
+.hero{max-width:1120px;margin:auto;padding:80px 24px 60px;text-align:center}
+.badge{
+  display:inline-flex;padding:7px 12px;border:1px solid #d7d3f8;
+  background:var(--accent2);color:#5548c7;border-radius:999px;font-size:12px;font-weight:800;
+}
+h1{
+  max-width:900px;margin:20px auto 18px;font-size:clamp(52px,8vw,92px);
+  line-height:.94;letter-spacing:-6px;
+}
+.hero p{max-width:650px;margin:0 auto 30px;color:var(--muted);font-size:19px}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.demo{
+  max-width:920px;margin:35px auto 0;background:#151515;color:#fff;
+  border-radius:24px;padding:12px;box-shadow:0 24px 70px #0002;
+}
+.windowbar{display:flex;gap:6px;padding:8px 10px}
+.dot{width:9px;height:9px;border-radius:50%;background:#555}
+.searchbox{
+  margin:10px;padding:18px 20px;border-radius:16px;background:#242424;
+  text-align:left;color:#ddd;font-size:16px;
+}
+.searchbox strong{color:white}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+.result{background:#202020;border-radius:16px;padding:18px;text-align:left}
+.result small{color:#aaa}.result h3{margin:4px 0}.reason{color:#bdb4ff;font-size:13px}
+.section{max-width:1120px;margin:auto;padding:90px 24px}
+.section h2{font-size:48px;letter-spacing:-3px;line-height:1;margin:0 0 15px}
+.section>p{color:var(--muted);max-width:650px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:35px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px}
+.icon{font-size:28px}.card h3{margin:14px 0 7px}.card p{color:var(--muted);font-size:14px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.quote{
+  background:#171717;color:white;border-radius:26px;padding:34px;font-size:28px;
+  letter-spacing:-1px;
+}
+.code{
+  background:#171717;color:#ddd;border-radius:20px;padding:24px;overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+}
+.purple{color:#bdb4ff}.green{color:#9ee6b0}.gray{color:#888}
+.cta{
+  background:var(--accent);color:white;border-radius:28px;padding:55px;text-align:center;
+}
+.cta h2{margin:0 0 12px}.cta p{color:#eee;margin-bottom:25px}
+footer{max-width:1120px;margin:auto;padding:30px 24px 50px;color:#777;font-size:13px;display:flex;justify-content:space-between}
+@media(max-width:760px){
+  .navlinks{display:none}.hero{padding-top:55px}h1{letter-spacing:-3px}
+  .grid,.split,.demo-grid{grid-template-columns:1fr}.section h2{font-size:38px}
+  .cta{padding:38px 22px}footer{display:block}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="#">mappy.</a>
+  <div class="navlinks">
+    <a href="#how">How it works</a>
+    <a href="#open">Open source</a>
+    <a href="#api">API</a>
+  </div>
+  <a class="btn dark" href="https://github.com/linkedintelligence/mappy/" target="_blank">View on GitHub ↗</a>
+</nav>
+
+<main>
+<section class="hero">
+  <div class="badge">Mappy v0.4 Officially Released!</div>
+  <h1>Search the world like you mean it.</h1>
+  <p>
+    Stop translating what you want into a pile of map filters.
+    Tell Mappy what you're looking for. It figures out the rest.
+  </p>
+  <div class="actions">
+    <a class="btn dark" href="#try">Try the idea ↓</a>
+    <a class="btn light" href="https://github.com/linkedintelligence/mappy/tree/main" target="_blank">Explore the code ↗</a>
+  </div>
+
+  <div class="demo" id="try">
+    <div class="windowbar"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+    <div class="searchbox">⌕ &nbsp; <strong>quiet café with Wi-Fi where I can study</strong></div>
+    <div class="demo-grid">
+      <div class="result"><small>0.4 km · strong match</small><h3>Corner Coffee</h3><div class="reason">✓ café · Wi-Fi · study-friendly signals</div></div>
+      <div class="result"><small>0.8 km · strong match</small><h3>Central Library</h3><div class="reason">✓ quiet · study · very close</div></div>
+      <div class="result"><small>1.1 km · good match</small><h3>Workroom</h3><div class="reason">✓ workspace · Wi-Fi · outlets</div></div>
+      <div class="result"><small>1.5 km · good match</small><h3>Garden Café</h3><div class="reason">✓ café · Wi-Fi · outdoor seating</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <h2>Ask normally.<br>Get useful results.</h2>
+  <p>Mappy turns messy human intent into structured place-search signals, finds candidates, ranks them, and tells you why they fit.</p>
+  <div class="grid">
+    <article class="card"><h3>Understands intent</h3><p>“4-star hotel with Wi-Fi” becomes actual constraints instead of a keyword pile.</p></article>
+    <article class="card"><h3>Finds candidates</h3><p>Searches OpenStreetMap data across multiple place types instead of locking onto one category.</p></article>
+    <article class="card"><h3>Ranks intelligently</h3><p>Distance, category fit, amenities and other signals work together to produce useful results.</p></article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="split">
+    <div class="quote">“I don't know which filters I need. I just know what I want.”</div>
+    <div>
+      <h2>That's the point.</h2>
+      <p>Mappy is built around the way people actually describe places. No filter archaeology required.</p>
+      <p>Want a quiet place to work? A 4-star hotel? A cheap date-night spot? Just say it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="open">
+  <h2>Built to be open.</h2>
+  <p>The creators of Mappy believe the future of AI is open. The core of Mappy is o GitHub, hackable, inspectable, and forkable.</p>
+  <div class="grid">
+    <article class="card"><h3>OpenStreetMap</h3><p>Uses open geographic data for place discovery.</p></article>
+    <article class="card"><h3>Local AI</h3><p>Works with Ollama and small local models such as Qwen.</p></article>
+    <article class="card"><h3>Open source</h3><p>Fork it, inspect it, modify it, build your own version.</p></article>
+  </div>
+</section>
+
+<section class="section" id="api">
+  <div class="split">
+    <div>
+      <h2>Introducing the MapLink API.</h2>
+      <p>The MapLink API enables the ability to use the powers of Mappy inside your own product, Coming soon to everyone.</p>
+      <a class="btn dark" href="https://github.com/linkedintelligence/maplink" target="_blank">Learn more ↗</a>
+    </div>
+    <pre class="code"><span class="gray">POST</span> /search
+
+{
+  <span class="purple">"query"</span>: <span class="green">"4 star hotel with Wi-Fi"</span>,
+  <span class="purple">"lat"</span>: <span class="green">51.5074</span>,
+  <span class="purple">"lon"</span>: <span class="green">-0.1278</span>
+}</pre>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta">
+    <h2>Make maps understand people.</h2>
+    <p>Mappy is an open-source experiment in natural-language place discovery.</p>
+    <a href="https://github.com/linkedintelligence/mappy/" target="_blank">Get Mappy on GitHub ↗</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div>© 2026 Mappy</div>
+  <div>An efficient, fast geographer.</div>
+</footer>
+</body>
+</html>
